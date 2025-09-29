@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Weather Forecast</title>
+  <style>
+    /* General body styling */
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #eef6e9;
+      display: flex;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      text-align: center;
+      color: #3b5e20;
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #a5d6a7;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+
+    .error {
+      color: #d32f2f;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .result, .forecast {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f1f8e9;
+      border: 1px solid #c5e1a5;
+    }
+
+    .result p {
+      margin: 6px 0;
+      color: #33691e;
+    }
+
+    .forecast-day {
+      margin: 10px 0;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid #c5e1a5;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .forecast-day p {
+      margin: 2px 0;
+      color: #2e7d32;
+      font-size: 0.95rem;
+    }
+
+    .forecast-day span {
+      font-weight: bold;
+    }
+
+    h2 {
+      text-align: center;
+      color: #33691e;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      h1, h2 { font-size: 1.3rem; }
+      button { font-size: 0.95rem; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Farm Weather Forecast</h1>
+
+    <form action="/get-coordinates" method="POST">
+      <label for="pincode">Enter Your Pincode:</label>
+      <input type="text" id="pincode" name="pincode" placeholder="e.g. 424002" required>
+      <button type="submit">Get Forecast</button>
+    </form>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <% if (result) { %>
+      <div class="result">
+        <p><span>Pincode:</span> <%= result.pincode %></p>
+        <p><span>Latitude:</span> <%= result.latitude %></p>
+        <p><span>Longitude:</span> <%= result.longitude %></p>
+        <p><span>Location:</span> <%= result.display_name %></p>
+      </div>
+    <% } %>
+
+    <% if (forecast) { %>
+      <h2>7-Day Farm Forecast</h2>
+      <div class="forecast">
+        <% for(let i=0; i<forecast.time.length; i++) { %>
+          <div class="forecast-day">
+            <p><span>Date:</span> <%= forecast.time[i] %></p>
+            <p><span>Max Temp:</span> <%= forecast.temperature_2m_max[i] %>°C</p>
+            <p><span>Min Temp:</span> <%= forecast.temperature_2m_min[i] %>°C</p>
+            <p><span>Precipitation:</span> <%= forecast.precipitation_sum[i] %> mm</p>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

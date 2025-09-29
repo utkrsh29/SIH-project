@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXIA Profile</title>
+  <style>
+    /* --- Root Colors & Shadows --- */
+    :root {
+      --primary-green: #4caf50;
+      --dark-green: #388e3c;
+      --light-green: #e8f5e9;
+      --text-dark: #2e7d32;
+      --text-light: #558b2f;
+      --background-color: #f4f8f3;
+      --card-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: var(--background-color);
+      color: var(--text-dark);
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 12px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar h1 {
+      color: var(--primary-green);
+      font-weight: 700;
+      margin: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--text-light);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--primary-green);
+      background-color: var(--light-green);
+    }
+    .nav-links .btn { /* Generic button style for nav */
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+    .nav-links .btn:hover {
+      background-color: var(--dark-green);
+    }
+    .nav-links .logout-btn { /* Logout specific style if needed */
+        background-color: #dc3545; /* Red for logout */
+    }
+    .nav-links .logout-btn:hover {
+        background-color: #c82333; /* Darker red */
+    }
+
+
+    /* Profile Container */
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .profile-container h2 {
+      text-align: center;
+      color: var(--primary-green);
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+    }
+
+    .profile-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: var(--light-green);
+      border: 1px solid var(--primary-green);
+    }
+
+    .profile-section h3 {
+      color: var(--text-dark);
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--primary-green);
+      padding-bottom: 10px;
+    }
+
+    .profile-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px 30px;
+      color: var(--text-dark);
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-item label {
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+    }
+
+    .info-item span {
+      font-size: 1.1rem;
+      padding: 8px 0;
+      border-bottom: 1px dashed #ccc;
+    }
+    .info-item span:empty::after {
+        content: 'Not set'; /* Display 'Not set' if value is empty */
+        color: #888;
+    }
+
+    .crop-history-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+    }
+
+    .crop-history-list li {
+        background-color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .crop-history-list li strong {
+        color: var(--primary-green);
+        margin-right: 10px;
+    }
+
+    /* Message styling (same as register/login) */
+    .message {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .message.success {
+        background-color: var(--light-green);
+        color: var(--dark-green);
+        border: 1px solid var(--primary-green);
+    }
+
+    .message.error {
+        background-color: #ffebee; /* Light red */
+        color: #d32f2f; /* Dark red */
+        border: 1px solid #ef9a9a; /* Medium red */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .profile-info {
+            grid-template-columns: 1fr;
+        }
+        .profile-container {
+            margin: 20px;
+            padding: 20px;
+        }
+        .navbar {
+            padding: 10px 15px;
+        }
+        .nav-links {
+            gap: 10px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>AXIA</h1>
+    <div class="nav-links">
+      <a href="/crop-recommender">Crop Recommender</a>
+      <a href="/weather-forecast">Weather Forecast</a>
+      <a href="/profile">Profile</a>
+      <% if (user) { %>
+        <form action="/logout" method="POST" style="margin:0;">
+            <button type="submit" class="btn logout-btn">Logout</button>
+        </form>
+      <% } else { %>
+        <a href="/login" class="btn">Login</a>
+        <a href="/register" class="btn" style="background-color: #5cb85c;">Register</a>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="profile-container">
+    <h2>Welcome, <%= user ? user.username : 'Guest' %>!</h2>
+
+    <% if (messages.error) { %>
+        <div class="message error">
+            <%= messages.error %>
+        </div>
+    <% } %>
+
+    <% if (user) { %>
+        <div class="profile-section">
+            <h3>Personal Information</h3>
+            <div class="profile-info">
+                <div class="info-item">
+                    <label>Username:</label>
+                    <span><%= user.username %></span>
+                </div>
+                <div class="info-item">
+                    <label>Email:</label>
+                    <span><%= user.email %></span>
+                </div>
+                <div class="info-item">
+                    <label>Phone Number:</label>
+                    <span><%= user.phone || '' %></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <h3>Farm Information</h3>
+            <div class="profile-info">
+                <div class="info-item">
+                    <label>Farm Area (acres):</label>
+                    <span><%= user.farmArea || '' %></span>
+                </div>
+                <div class="info-item">
+                    <label>Pincode:</label>
+                    <span><%= user.pincode || '' %></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <h3>Previous Crop History</h3>
+            <% if (user.cropHistory && user.cropHistory.length > 0) { %>
+                <ul class="crop-history-list">
+                    <% user.cropHistory.forEach(crop => { %>
+                        <li>
+                            <span><strong><%= crop.year %>:</strong> <%= crop.name %> (<%= crop.yield %>)</span>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No previous crop history recorded.</p>
+            <% } %>
+        </div>
+
+    <% } else { %>
+        <p class="message error">You need to be logged in to view your profile. Please <a href="/login">login</a>.</p>
+    <% } %>
+
+  </div>
+
+</body>
+</html>

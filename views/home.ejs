@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXIA Dashboard</title>
+    <style>
+        /* --- Root Colors & Shadows --- */
+        :root {
+            --primary-green: #4caf50;
+            --dark-green: #388e3c;
+            --light-green: #e8f5e9;
+            --text-dark: #2e7d32;
+            --text-light: #558b2f;
+            --background-color: #f4f8f3;
+            --card-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-dark);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 12px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar h1 {
+            color: var(--primary-green);
+            font-weight: 700;
+            margin: 0;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-light);
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary-green);
+            background-color: var(--light-green);
+        }
+        .nav-links .login-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        .nav-links .login-btn:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Pincode Input Box */
+        .pincode-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .pincode-section {
+            background-color: var(--light-green);
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .pincode-section input {
+            padding: 14px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            width: 220px;
+            transition: border-color 0.3s;
+        }
+        .pincode-section input:focus {
+            border-color: var(--primary-green);
+            outline: none;
+        }
+        .pincode-section button {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .pincode-section button:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* --- Market Prices Section --- */
+        .market-prices {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+        .market-prices h3 {
+            color: var(--primary-green);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-green);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        .price-ticker {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .price-item {
+            background-color: var(--light-green);
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .price-item:hover {
+            transform: translateY(-5px);
+        }
+        .price-item .name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        .price-item .value {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--dark-green);
+        }
+        
+        /* --- Data Results Container (Cards) --- */
+        .data-results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .result-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+        .result-card .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-green);
+        }
+        .result-card .card-header .icon {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-right: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-green);
+        }
+
+        /* Example icon placeholders (replace with actual icons) */
+        #weather-icon-span::before { content: '☀️'; }
+        #soil-icon-span::before { content: '🌱'; }
+        #profit-icon-span::before { content: '📈'; }
+        #alert-icon-span::before { content: '⚠️'; }
+
+        .result-card .card-header h3 {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+        .data-point {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        .data-point:last-of-type {
+            border-bottom: none;
+        }
+        .data-point span:first-child {
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        .data-point span:last-child {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        /* Specific styling for the fertilizer tip */
+        .data-point strong#res-fertilizer {
+            color: var(--dark-green);
+            font-size: 1.05rem;
+            flex-grow: 1;
+            text-align: right;
+            padding-left: 10px;
+        }
+
+        /* Styling for recommendation and alert paragraphs */
+        #res-recommendation,
+        #res-alert {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        #risk-card {
+            background-color: #fff8e1;
+            border: 1px solid #ffecb3;
+        }
+        #risk-card .card-header .icon {
+            background-color: #ffecb3;
+        }
+        #risk-card .card-header h3 {
+            color: #e65100;
+        }
+        #risk-card p#res-alert {
+            color: #e65100;
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .market-prices {
+                margin: 30px 20px;
+                padding: 20px;
+            }
+            .data-results-container {
+                grid-template-columns: 1fr;
+                margin: 30px 20px;
+                gap: 20px;
+            }
+            .price-ticker {
+                gap: 15px;
+            }
+            .price-item {
+                padding: 15px 20px;
+                min-width: unset;
+                width: calc(50% - 10px);
+            }
+        }
+        @media (max-width: 480px) {
+            .price-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>AXIA</h1>
+        <div class="nav-links">
+            <a href="/crop-recommender">Crop Recommender</a>
+            <a href="/weather-forecast">Weather Forecast</a>
+            <a href="/profile">Profile</a>
+            <a href="/login" class="login-btn">Login</a>
+            <a href="/register" class="login-btn" style="background-color: #5cb85c;">Register</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h2>AI-Based Crop Recommendation for Farmers</h2>
+        <p>Optimize your farm yield with intelligent crop suggestions and real-time weather insights tailored to your fields. Enter your pincode below to get recommendations for your area.</p>
+    </div>
+
+    <div class="pincode-container">
+        <form action="/submit-pincode-home" method="POST" class="pincode-section">
+            <input type="text" placeholder="Enter Pincode" id="pincode" name="pincode" maxlength="6">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <div class="market-prices">
+            <h3>Nearby Market Prices (per Quintal)</h3>
+            <div class="price-ticker">
+                <div class="price-item"><span class="name">Wheat</span><span class="value">₹2,350</span></div>
+                <div class="price-item"><span class="name">Corn</span><span class="value">₹2,180</span></div>
+                <div class="price-item"><span class="name">Soybean</span><span class="value">₹4,520</span></div>
+                <div class="price-item"><span class="name">Cotton</span><span class="value">₹7,100</span></div>
+            </div>
+        </div>
+
+        <% if (weatherData) { %>
+            <div class="data-results-container" id="data-results-container">
+                <div class="result-card">
+                    <div class="card-header">
+                        <span class="icon" id="weather-icon-span"></span>
+                        <h3>Live Weather for <%= pincode %></h3>
+                    </div>
+                    <div class="data-point"><span>Temperature:</span> <span id="res-temp"><%= weatherData.temperature %>°C</span></div>
+                    <div class="data-point"><span>Condition:</span> <span id="res-condition"><%= weatherData.condition %></span></div>
+                    <div class="data-point"><span>Wind Speed:</span> <span id="res-wind"><%= weatherData.windspeed %> km/h</span></div>
+                    <div class="data-point"><span>Humidity:</span> <span id="res-humidity">N/A</span></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="card-header"><span class="icon" id="soil-icon-span"></span><h3>Soil Analysis</h3></div>
+                    <div class="data-point"><span>Soil Type:</span> <span id="res-soil-type">-</span></div>
+                    <div class="data-point"><span>pH Level:</span> <span id="res-ph">-</span></div>
+                    <div class="data-point"><span>Nitrogen (N):</span> <span id="res-n">-</span></div>
+                    <div class="data-point"><span>Moisture:</span> <span id="res-moisture">-</span></div>
+                    <div class="data-point" style="background: var(--light-green); border-radius: 8px; padding: 8px;"><span>Fertilizer Tip:</span> <strong id="res-fertilizer" style="text-align: right;">-</strong></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="card-header"><span class="icon" id="profit-icon-span"></span><h3>Profitability Forecast</h3></div>
+                    <div id="res-recommendation">Enter a pincode to see crop suggestions.</div>
+                </div>
+
+                <div class="result-card" id="risk-card">
+                    <div class="card-header"><span class="icon" id="alert-icon-span"></span><h3>Risk Alerts</h3></div>
+                    <p id="res-alert">No immediate risks detected.</p>
+                </div>
+            </div>
+        <% } else if (weatherError) { %>
+            <div class="data-results-container" id="data-results-container">
+                <div class="result-card" style="background-color: #ffebee; border: 1px solid #ffcdd2;">
+                    <div class="card-header">
+                        <span class="icon" id="alert-icon-span" style="background-color: #ffcdd2; color: #c62828;"></span>
+                        <h3>Error</h3>
+                    </div>
+                    <p style="color: #c62828; font-weight: 500;"><%= weatherError %></p>
+                </div>
+            </div>
+        <% } %>
+
+    </div>
+
+</body>
+</html>

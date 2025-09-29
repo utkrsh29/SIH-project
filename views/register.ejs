@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXIA Register</title>
+  <style>
+    /* --- Root Colors & Shadows --- */
+    :root {
+      --primary-green: #4caf50;
+      --dark-green: #388e3c;
+      --light-green: #e8f5e9;
+      --text-dark: #2e7d32;
+      --text-light: #558b2f;
+      --background-color: #f4f8f3;
+      --card-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: var(--background-color);
+      color: var(--text-dark);
+      display: flex; /* Added for centering content */
+      justify-content: center; /* Added for centering content */
+      align-items: center; /* Added for centering content */
+      min-height: 100vh; /* Added for centering content */
+    }
+
+    /* Register Container */
+    .register-container {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      width: 100%;
+      max-width: 450px; /* Slightly wider than login for more fields */
+      text-align: center;
+    }
+
+    .register-container h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: var(--primary-green);
+    }
+
+    .register-form .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .register-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .register-form input[type="text"],
+    .register-form input[type="email"],
+    .register-form input[type="password"] {
+      width: calc(100% - 28px); /* Account for padding */
+      padding: 14px;
+      font-size: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      transition: border-color 0.3s;
+    }
+
+    .register-form input[type="text"]:focus,
+    .register-form input[type="email"]:focus,
+    .register-form input[type="password"]:focus {
+      border-color: var(--primary-green);
+      outline: none;
+    }
+
+    .register-form button {
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .register-form button:hover {
+      background-color: var(--dark-green);
+    }
+
+    .register-container p {
+      margin-top: 25px;
+      color: var(--text-light);
+    }
+
+    .register-container p a {
+      color: var(--primary-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .register-container p a:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .message.success {
+        background-color: var(--light-green);
+        color: var(--dark-green);
+        border: 1px solid var(--primary-green);
+    }
+
+    .message.error {
+        background-color: #ffebee; /* Light red */
+        color: #d32f2f; /* Dark red */
+        border: 1px solid #ef9a9a; /* Medium red */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <h2>Create AXIA Account</h2>
+
+    <% if (messages.success) { %>
+        <div class="message success">
+            <%= messages.success %>
+        </div>
+    <% } %>
+    <% if (messages.error) { %>
+        <div class="message error">
+            <%= messages.error %>
+        </div>
+    <% } %>
+
+    <form action="/register" method="POST" class="register-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login here</a></p>
+  </div>
+
+</body>
+</html>
