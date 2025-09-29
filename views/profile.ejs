@@ -203,6 +203,310 @@
             gap: 10px;
         }
     }
+    /* --- Root Colors & Shadows --- */
+:root {
+  --primary-green: #4caf50;
+  --dark-green: #388e3c;
+  --light-green: #e8f5e9;
+  --text-dark: #2e7d32;
+  --text-light: #558b2f;
+  --background-color: #f4f8f3;
+  --card-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-dark);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 12px 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar h1 {
+  color: var(--primary-green);
+  font-weight: 700;
+  margin: 0;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.nav-links a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--text-light);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+.nav-links a:hover {
+  color: var(--primary-green);
+  background-color: var(--light-green);
+}
+.nav-links .btn { /* Generic button style for nav */
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+.nav-links .btn:hover {
+  background-color: var(--dark-green);
+}
+.nav-links .logout-btn { /* Logout specific style if needed */
+    background-color: #dc3545; /* Red for logout */
+}
+.nav-links .logout-btn:hover {
+    background-color: #c82333; /* Darker red */
+}
+
+
+/* Profile Container */
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.profile-container h2 {
+  text-align: center;
+  color: var(--primary-green);
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+.profile-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--light-green);
+  border: 1px solid var(--primary-green);
+}
+
+.profile-section h3 {
+  color: var(--text-dark);
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--primary-green);
+  padding-bottom: 10px;
+}
+
+.profile-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 30px;
+  color: var(--text-dark);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item label {
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.info-item span {
+  font-size: 1.1rem;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+  word-break: break-word; /* Ensure long words break */
+}
+.info-item span:empty::after {
+    content: 'Not set'; /* Display 'Not set' if value is empty */
+    color: #888;
+}
+
+.crop-history-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.crop-history-list li {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    flex-wrap: wrap; /* Allow content to wrap */
+}
+
+.crop-history-list li strong {
+    color: var(--primary-green);
+    margin-right: 10px;
+}
+
+/* Message styling (same as register/login) */
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.message.success {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    border: 1px solid var(--primary-green);
+}
+
+.message.error {
+    background-color: #ffebee; /* Light red */
+    color: #d32f2f; /* Dark red */
+    border: 1px solid #ef9a9a; /* Medium red */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px 15px; /* Reduce padding for smaller screens */
+    }
+    .nav-links {
+        gap: 8px; /* Reduce gap between nav links */
+    }
+    .nav-links a {
+        padding: 4px 8px; /* Smaller padding for links */
+        font-size: 0.9rem; /* Smaller font size for links */
+    }
+    .nav-links .btn {
+        padding: 6px 12px; /* Smaller padding for buttons */
+        font-size: 0.85rem; /* Smaller font size for buttons */
+    }
+    .profile-container {
+        margin: 30px 20px; /* Adjust margin for profile container */
+        padding: 25px; /* Adjust padding */
+    }
+    .profile-container h2 {
+        font-size: 1.8rem; /* Adjust heading size */
+        margin-bottom: 25px;
+    }
+    .profile-section {
+        padding: 15px; /* Adjust section padding */
+        margin-bottom: 25px;
+    }
+    .profile-section h3 {
+        font-size: 1.3rem; /* Adjust sub-heading size */
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    .profile-info {
+        gap: 15px; /* Adjust gap */
+    }
+    .info-item label {
+        font-size: 0.9rem; /* Smaller label font size */
+    }
+    .info-item span {
+        font-size: 1rem; /* Smaller info font size */
+    }
+    .crop-history-list li {
+        padding: 8px 12px; /* Smaller padding for list items */
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-info {
+        grid-template-columns: 1fr; /* Stack profile info items vertically */
+    }
+    .profile-container {
+        margin: 20px 15px; /* Tighter margins */
+        padding: 20px;
+    }
+    .navbar {
+        flex-direction: column; /* Stack logo and nav links */
+        align-items: flex-start; /* Align items to the start */
+        padding: 15px;
+    }
+    .navbar h1 {
+        margin-bottom: 10px; /* Space between logo and links */
+    }
+    .nav-links {
+        flex-direction: column; /* Stack nav links vertically */
+        align-items: flex-start; /* Align links to the left */
+        width: 100%;
+        gap: 10px;
+    }
+    .nav-links a,
+    .nav-links .btn {
+        width: calc(100% - 20px); /* Full width for links/buttons within padding */
+        text-align: center; /* Center text in buttons/links */
+        padding: 10px 0; /* More vertical padding */
+    }
+    .profile-container h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+    .profile-section h3 {
+        font-size: 1.2rem;
+    }
+    .crop-history-list li {
+        flex-direction: column; /* Stack content in history items */
+        align-items: flex-start;
+        font-size: 0.9rem;
+    }
+    .crop-history-list li strong {
+        margin-bottom: 5px; /* Space between strong and rest of text */
+    }
+    .message {
+        margin: 15px; /* Adjust message margin */
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .profile-container {
+        padding: 15px;
+    }
+    .profile-section {
+        padding: 12px;
+    }
+    .profile-container h2 {
+        font-size: 1.4rem;
+    }
+    .profile-section h3 {
+        font-size: 1.1rem;
+    }
+    .info-item label {
+        font-size: 0.85rem;
+    }
+    .info-item span {
+        font-size: 0.95rem;
+    }
+    .crop-history-list li {
+        padding: 7px 10px;
+    }
+}
   </style>
 </head>
 <body>

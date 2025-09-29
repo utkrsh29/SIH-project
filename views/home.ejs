@@ -316,6 +316,423 @@
                 width: 100%;
             }
         }
+        /* --- Root Colors & Shadows --- */
+:root {
+    --primary-green: #4caf50;
+    --dark-green: #388e3c;
+    --light-green: #e8f5e9;
+    --text-dark: #2e7d32;
+    --text-light: #558b2f;
+    --background-color: #f4f8f3;
+    --card-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-dark);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 12px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.navbar h1 {
+    color: var(--primary-green);
+    font-weight: 700;
+    margin: 0;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.nav-links a {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--text-light);
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+.nav-links a:hover {
+    color: var(--primary-green);
+    background-color: var(--light-green);
+}
+.nav-links .login-btn {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+.nav-links .login-btn:hover {
+    background-color: var(--dark-green);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+}
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+.hero p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Pincode Input Box */
+.pincode-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+.pincode-section {
+    background-color: var(--light-green);
+    padding: 30px 25px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.pincode-section input {
+    padding: 14px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    width: 220px;
+    transition: border-color 0.3s;
+}
+.pincode-section input:focus {
+    border-color: var(--primary-green);
+    outline: none;
+}
+.pincode-section button {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.pincode-section button:hover {
+    background-color: var(--dark-green);
+}
+
+/* --- Market Prices Section --- */
+.market-prices {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+.market-prices h3 {
+    color: var(--primary-green);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--light-green);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+.price-ticker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+}
+.price-item {
+    background-color: var(--light-green);
+    padding: 18px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    transition: transform 0.2s ease-in-out;
+}
+.price-item:hover {
+    transform: translateY(-5px);
+}
+.price-item .name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+.price-item .value {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--dark-green);
+}
+
+/* --- Data Results Container (Cards) --- */
+.data-results-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.result-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.result-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+.result-card .card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-green);
+}
+.result-card .card-header .icon {
+    font-size: 2rem;
+    color: var(--primary-green);
+    margin-right: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--light-green);
+}
+
+/* Example icon placeholders (replace with actual icons) */
+#weather-icon-span::before { content: '☀️'; }
+#soil-icon-span::before { content: '🌱'; }
+#profit-icon-span::before { content: '📈'; }
+#alert-icon-span::before { content: '⚠️'; }
+
+.result-card .card-header h3 {
+    color: var(--text-dark);
+    font-size: 1.4rem;
+    margin: 0;
+    font-weight: 600;
+}
+.data-point {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+.data-point:last-of-type {
+    border-bottom: none;
+}
+.data-point span:first-child {
+    font-weight: 500;
+    color: var(--text-light);
+}
+.data-point span:last-child {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Specific styling for the fertilizer tip */
+.data-point strong#res-fertilizer {
+    color: var(--dark-green);
+    font-size: 1.05rem;
+    flex-grow: 1;
+    text-align: right;
+    padding-left: 10px;
+}
+
+/* Styling for recommendation and alert paragraphs */
+#res-recommendation,
+#res-alert {
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+#risk-card {
+    background-color: #fff8e1;
+    border: 1px solid #ffecb3;
+}
+#risk-card .card-header .icon {
+    background-color: #ffecb3;
+}
+#risk-card .card-header h3 {
+    color: #e65100;
+}
+#risk-card p#res-alert {
+    color: #e65100;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px 15px; /* Reduce padding for smaller screens */
+    }
+    .nav-links {
+        gap: 8px; /* Reduce gap between nav links */
+    }
+    .nav-links a {
+        padding: 4px 8px; /* Smaller padding for links */
+        font-size: 0.9rem; /* Smaller font size for links */
+    }
+    .nav-links .login-btn {
+        padding: 6px 12px; /* Smaller padding for buttons */
+        font-size: 0.85rem; /* Smaller font size for buttons */
+    }
+    .hero h2 {
+        font-size: 1.7rem; /* Adjust heading size */
+    }
+    .hero p {
+        font-size: 1rem; /* Adjust paragraph size */
+    }
+    .pincode-section {
+        flex-direction: column; /* Stack input and button vertically */
+        padding: 20px; /* Adjust padding */
+        gap: 15px; /* Increase gap for stacked elements */
+    }
+    .pincode-section input {
+        width: 100%; /* Full width for input */
+        max-width: 280px; /* Limit max width */
+        text-align: center; /* Center placeholder text */
+    }
+    .pincode-section button {
+        width: 100%; /* Full width for button */
+        max-width: 280px; /* Limit max width */
+    }
+    .market-prices {
+        margin: 30px 20px;
+        padding: 20px;
+    }
+    .market-prices h3 {
+        font-size: 1.5rem; /* Adjust heading size */
+    }
+    .data-results-container {
+        grid-template-columns: 1fr;
+        margin: 30px 20px;
+        gap: 20px;
+    }
+    .price-ticker {
+        gap: 15px;
+    }
+    .price-item {
+        padding: 15px 20px;
+        min-width: unset;
+        width: calc(50% - 10px);
+    }
+    .result-card {
+        padding: 20px; /* Adjust card padding */
+    }
+    .result-card .card-header h3 {
+        font-size: 1.2rem; /* Adjust card header heading size */
+    }
+    .data-point {
+        font-size: 0.95rem; /* Adjust data point font size */
+    }
+    .data-point strong#res-fertilizer,
+    #res-recommendation,
+    #res-alert {
+        font-size: 0.95rem; /* Adjust text sizes */
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column; /* Stack logo and nav links */
+        align-items: flex-start; /* Align items to the start */
+        padding: 15px;
+    }
+    .navbar h1 {
+        margin-bottom: 10px; /* Space between logo and links */
+    }
+    .nav-links {
+        flex-direction: column; /* Stack nav links vertically */
+        align-items: flex-start; /* Align links to the left */
+        width: 100%;
+        gap: 10px;
+    }
+    .nav-links a,
+    .nav-links .login-btn {
+        width: calc(100% - 20px); /* Full width for links/buttons within padding */
+        text-align: center; /* Center text in buttons/links */
+        padding: 10px 0; /* More vertical padding */
+    }
+    .hero {
+        padding: 30px 15px;
+    }
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    .hero p {
+        font-size: 0.9rem;
+    }
+    .pincode-section {
+        padding: 15px;
+        margin: 20px 15px; /* Adjust margin */
+        width: calc(100% - 30px); /* Full width minus padding */
+        box-sizing: border-box; /* Include padding in width */
+    }
+    .market-prices {
+        margin: 20px 15px;
+        padding: 15px;
+    }
+    .price-item {
+        width: 100%; /* Make each price item take full width */
+    }
+    .data-results-container {
+        margin: 20px 15px;
+        padding: 0;
+    }
+    .result-card {
+        padding: 15px;
+    }
+    .result-card .card-header .icon {
+        font-size: 1.5rem; /* Smaller icon size */
+        width: 35px;
+        height: 35px;
+    }
+    .result-card .card-header h3 {
+        font-size: 1.1rem;
+    }
+}
     </style>
 </head>
 <body>
